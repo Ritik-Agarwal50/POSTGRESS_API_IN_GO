@@ -4,13 +4,21 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
 func main() {
-	var url = "user=postgres.uukyjvzomuaxwnfjgatu password=0VwLOEtc4ZMZ65LM host=aws-0-us-east-1.pooler.supabase.com port=6543 dbname=postgres"
-	_, err := sql.Open("postgres", url)
+	// Connect to the "bank" database.
+	err1 := godotenv.Load(".env")
+	if err1 != nil {
+		log.Fatal("Error loading .env file")
+	}
+	fmt.Println("Successfully loaded .env file")
+	var fetchURL = os.Getenv("url")
+	_, err := sql.Open("postgres", fetchURL)
 	if err != nil {
 		log.Fatal(err)
 	}
