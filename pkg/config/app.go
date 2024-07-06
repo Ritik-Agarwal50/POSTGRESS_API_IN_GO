@@ -1,28 +1,30 @@
 package config
+
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"os"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
-	_ "github.com/lib/pq"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
+
 var (
-	db *sql.DB
+	db *gorm.DB
 )
+
 func Connect() {
 	// Connect to the "bank" database.
 	godotenv.Load(".env")
 	fmt.Println("Successfully loaded .env file")
 	var fetchURL = os.Getenv("url")
-	d, err := sql.Open("postgres", fetchURL)
+	d, err := gorm.Open("postgres", fetchURL)
 	if err != nil {
 		log.Fatal(err)
 	}
 	db = d
 	fmt.Print("Connected to the database\n")
 }
-func getDB() *sql.DB {
+func getDB() *gorm.DB {
 	return db
 }
