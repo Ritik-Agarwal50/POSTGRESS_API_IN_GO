@@ -1,15 +1,12 @@
 package main
-
 import (
 	"database/sql"
 	"fmt"
 	"log"
 	"os"
-
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
-
 func main() {
 	// Connect to the "bank" database.
 	err1 := godotenv.Load(".env")
@@ -23,4 +20,8 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Print("Connected to the database\n")
+
+	type movies struct{
+		
+	} 
 }
